@@ -1,0 +1,25 @@
+<nodo-principal>
+    <universidad nombre="Escuela Politecnica Nacional" direccion="bla bla" telefono="bla bla bla">
+        <facultad nombre="Sistemas">
+            <aso>AEIS</aso>
+            <departamento>Informatica y Computacion</departamento>
+        </facultad>
+        <facultad>
+            <aso>
+
+            </aso>
+            <departamento>
+
+            </departamento>
+        </facultad>
+        <facultad>
+            <aso>
+
+            </aso>
+            <departamento></departamento>
+        </facultad>
+    </universidad>
+</nodo-principal>
+<nodo-principal2>
+
+</nodo-principal2>
