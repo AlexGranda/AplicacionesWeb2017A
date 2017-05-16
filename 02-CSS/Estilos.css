@@ -47,3 +47,6 @@ button:hover {
 button:focus {
     color: lightcoral;
 }
+.hidden:hover {
+
+}
