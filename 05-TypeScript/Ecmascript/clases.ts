@@ -12,8 +12,7 @@ class usuario{
     }
     //funcion, devuelven void por defecto
     imprimirNombre(saludo:string, titulo?:string):string{
-        return `${saludo}, ${titulo}
-        ${this.nombre} ${this.apellido}`;
+        return `${saludo}, ${titulo} ${this.nombre} ${this.apellido}`;
     }
 }
 

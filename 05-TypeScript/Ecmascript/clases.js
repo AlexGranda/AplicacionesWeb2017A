@@ -10,7 +10,7 @@ var usuario = (function () {
     }
     //funcion, devuelven void por defecto
     usuario.prototype.imprimirNombre = function (saludo, titulo) {
-        return saludo + ", " + titulo + "\n        " + this.nombre + " " + this.apellido;
+        return saludo + ", " + titulo + " " + this.nombre + " " + this.apellido;
     };
     return usuario;
 }());
