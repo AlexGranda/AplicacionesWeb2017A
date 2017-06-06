@@ -1,6 +1,6 @@
 {
   "name": "twj-2017-a-granda",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Calculadora",
   "main": "index.js",
   "scripts": {
@@ -11,5 +11,8 @@
     "calcu"
   ],
   "author": "Alexandra Granda",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "machinepack-passwords": "^2.3.0"
+  }
 }

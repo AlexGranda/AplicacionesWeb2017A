@@ -6,6 +6,42 @@ const fs = require('fs');//Importar el modulo 'fs'
 
 const express = require('express');
 
+var password = require('machinepack-passwords');
+
+const calculadora = require('twj-2017-a-granda');
+
+let a=2,
+    b=3,
+    resultadoSuma,
+    resultadoResta,
+    resultadoMultiplicacion;
+
+resultadoSuma = calculadora.calculadoraUdla.sumar(a,b);
+
+resultadoResta = calculadora.calculadoraUdla.restar(a,b);
+
+resultadoMultiplicacion = calculadora.calculadoraUdla.multiplicar(a,b);
+
+
+console.log(`El resultado de la suma es: ${resultadoSuma}`);
+console.log(`El resultado de la resta es: ${resultadoResta}`);
+console.log(`El resultado de la multiplicación es: ${resultadoMultiplicacion}`);
+
+let passwordAEncriptar = "1234"
+
+
+password.encryptPassword({
+    password: passwordAEncriptar,
+}).exec({
+    error: (error)=> {
+        console.log(`Error ${error}`);
+    },
+    success: (resultado)=> {
+        console.log(`Resultado password encriptado: ${resultado}`);
+    },
+});
+
+
 console.log("Empieza")
 
 //1.- Nombre y ruta del archivo
