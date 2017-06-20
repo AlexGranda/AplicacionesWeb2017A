@@ -6,6 +6,10 @@
 
 //devuelve un objeto con varios metodos
 
+let Passwords = require('machinepack-passwords');
+
+//Se importa todo el paquete en la variable passwords
+
 exports.calculadoraUdla = {
     sumar:(n1, n2) =>{
         return n1+n2;
@@ -15,5 +19,6 @@ exports.calculadoraUdla = {
     },
     multiplicar:(n1,n2)=>{
         return n1*n2;
-    }
+    },
+    passwords:Passwords
 };

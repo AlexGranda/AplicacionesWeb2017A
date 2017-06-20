@@ -5,18 +5,18 @@
 
 function holaMundo()
 {
-    console.log("Hola Mundo")
+    console.log("Hola Mundo 1")
 };
 
 let holaMundo2 = function () {
-    console.log("Hola Mundo")
+    console.log("Hola Mundo 2")
 }
 
 let holaMundo3 = ()=> {
-    console.log("Hola Mundo")
+    console.log("Hola Mundo 3")
 }
 
-let holamundo4 = () => console.log("Hola Mundo");
+let holamundo4 = () => console.log("Hola Mundo 4");
 
 let holaMundo5 = function () {
     return 5;
@@ -35,4 +35,4 @@ let saludar = nombre => "Hola" + nombreUsuario;//retorna un string sin necesidad
 
 let saludarConApellido = (nombre, apellido) => `Hola ${nombre} ${apellido}`;
 
-console.log(saludarConApellido("ALexandra", "Granda"));
+console.log(saludarConApellido("Alexandra", "Granda"));

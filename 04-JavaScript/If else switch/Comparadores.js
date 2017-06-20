@@ -44,9 +44,9 @@ if(numero23){//null
 
 var numero25 = 0;
 if(numero25){
-
+ console.log("entra a true el 0")
 }else{
-
+    console.log("Entra a false el 0")
 }
 var numero27 =[] ;
 

@@ -6,9 +6,10 @@ class usuario{
     public nombre:string;
     private apellido:string;
 
+
     constructor(public nombre:string, private apellido?:string){//parametros opcionales siempre al final
-        /*this.nombre = nombre;
-        this.apellido = apellido;*/
+        this.nombre = nombre;
+        this.apellido = apellido;
     }
     //funcion, devuelven void por defecto
     imprimirNombre(saludo:string, titulo?:string):string{

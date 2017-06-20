@@ -1,7 +1,7 @@
 #Bienvenidos
 ##Calculadora Udla
 
-Este paquet nos ayuda a sumar, restar y multiplicar.
+Este paquete nos ayuda a sumar, restar y multiplicar.
 
 `````exports.calculadoraUdla = {
          sumar:(n1, n2) =>{

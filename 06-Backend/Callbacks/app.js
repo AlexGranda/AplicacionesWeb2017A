@@ -6,8 +6,6 @@ const fs = require('fs');//Importar el modulo 'fs'
 
 const express = require('express');
 
-var password = require('machinepack-passwords');
-
 const calculadora = require('twj-2017-a-granda');
 
 let a=2,
@@ -27,10 +25,10 @@ console.log(`El resultado de la suma es: ${resultadoSuma}`);
 console.log(`El resultado de la resta es: ${resultadoResta}`);
 console.log(`El resultado de la multiplicación es: ${resultadoMultiplicacion}`);
 
-let passwordAEncriptar = "1234"
+let passwordAEncriptar = "absdabsdabs"
 
 
-password.encryptPassword({
+calculadora.calculadoraUdla.passwords.encryptPassword({
     password: passwordAEncriptar,
 }).exec({
     error: (error)=> {
@@ -58,4 +56,4 @@ console.log("Termina")
 
 //se corre raro xq es un callback, cuando le digo q lea el archivo
 //se demora un tiempo, si una instruccion de demora, el hilo continua
-//la ejecucion del archivo
+//la ejecucion del archivo|
