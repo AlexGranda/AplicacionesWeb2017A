@@ -30,5 +30,16 @@ Para levantar el servidor
 Para levantar en un diferente puerto
 
 ```
-: sails lift --port 8080
+> sails lift --port 8080
+```
+
+```
+> node app.js --port 8080
+```
+##Comando para crear controladores
+
+Comando para crear controladores
+
+```
+> sails generate controller Saludo
 ```
