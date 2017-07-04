@@ -42,7 +42,7 @@ module.exports.connections = {
   ***************************************************************************/
   dockerMySql: {
      adapter: 'sails-mysql',
-     host: '192.168.99.102',
+     host: '192.168.99.100',
      user: 'alex', //optional
      password: '1234', //optional
      database: 'docker' //optional
