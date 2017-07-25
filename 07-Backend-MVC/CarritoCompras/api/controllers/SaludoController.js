@@ -20,43 +20,14 @@ module.exports = {
         }
     },
     //ejemplos deber
-    status: function (req, res) {
-        res.status(505);
-        return res.send("This page will always go to 505");
-    },
-    set: function (req, res) {
-        res.set('holi', 'boli');
-        res.set('xq', 'tan soli');
-        res.set('aqui', 'en la poli');
-        return res.send();
-    },
-    get: function (req, res) {
-        res.get('Connection');
-        return res.send();
-    },
-    cookie: function (req, res) {
-        res.cookie('cookie', 'woof');
-        res.cookie('cookie1', 'arf');
-        return res.send();
-    },
-    clearCookie: function (req, res) {
-        res.clearCookie('cookie');
-        res.clearCookie('cookie1');
-        return res.send();
-    },
-    redirect: function (req, res) {
-        res.redirect('www.google.com');
-        return res.send();
-    },
-    location: function (req, res) {
-        res.location('foo/bar');
-        return res.send();
-    },
     crearUsuarioQuemado: function (req, res) {
         //Formasd de enviar parametros
         // 1 - Query parameters?nombre=Adrian&apellido=eguez
         //2 - FOrms parameters
         var parametros = req.allParams();
+        //localhost:1337/Saludo/crearUsuarioQuemado -> absolutePath
+        //relativePath: /Saludo/crearUsuario
+        sails.log.info("parametros", parametros);
         var nuevoUsuario = {
             nombres: parametros.nombres,
             apellidos: parametros.apellidos,
@@ -76,7 +47,63 @@ module.exports = {
                 return res.serverError(error);
             }
             else {
-                return res.ok(usuarioCreado);
+                Usuario.find().exec(function (error, records) {
+                    if (error)
+                        return res.serverError(error);
+                    else {
+                        return res.view('homepage', { usuarios: records });
+                    }
+                });
+            }
+        });
+    },
+    encontrarUsuario: function (req, res) {
+        var parametros = req.allParams();
+        Usuario.find(parametros).exec(function (error, records) {
+            if (error) {
+                return res.serverError(error);
+            }
+            else {
+                console.log('Wow, there are %d users compatible: ', records.length, records);
+                return res.json(records);
+            }
+        });
+    },
+    encontrarTodos: function (req, res) {
+        Usuario.find().exec(function (error, records) {
+        });
+    },
+    encontrarUnUsuario: function (req, res) {
+        var parametros = req.allParams();
+        Usuario.findOne(parametros).exec(function (error, record) {
+            if (error) {
+                return res.serverError(error);
+            }
+            if (!record) {
+                return res.notFound('Could not find user, sorry');
+            }
+            else {
+                return res.json(record);
+            }
+        });
+    },
+    encontrarOCrear: function (req, res) {
+        var parametros = req.allParams();
+        Usuario.findOrCreate({ nombre: parametros.nombre }, { parametros: parametros }).exec(function createFindCB(error, createdOrFoundRecords) {
+            console.log('What\'s cookin\' ' + createdOrFoundRecords.name + '?');
+            return res.json(createdOrFoundRecords);
+        });
+    },
+    actualizarNombre: function (req, res) {
+        var parametros = req.allParams();
+        Usuario.update({ nombres: parametros.nombreOriginal }, { nombre: parametros.nombreNuevo }).exec(function afterwards(err, updated) {
+            if (err) {
+                // handle error here- e.g. `res.serverError(err);`
+                return;
+            }
+            else {
+                console.log('Updated user to have name ' + updated[0].nombres);
+                return res.json(updated);
             }
         });
     }

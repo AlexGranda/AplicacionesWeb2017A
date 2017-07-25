@@ -1,4 +1,4 @@
-<!-- Default home page -->
+<!-- Default home page
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600' rel='stylesheet' type='text/css'>
 <style>
   /* Styles included inline since you'll probably be deleting this page anyway */
@@ -17,7 +17,7 @@ setTimeout(function sunrise () {
   </div>
   <div class="main container clearfix">
     <!-- <h1>Getting started</h1>
-    <p>Don't worry, we've got your back.</p> -->
+    <p>Don't worry, we've got your back.</p>
     <ul class="getting-started">
       <li class="clearfix">
         <div class="step">
@@ -51,7 +51,7 @@ setTimeout(function sunrise () {
       </li>
     </ul>
     <div class="links">
-      <!-- <h3>Links</h3> -->
+      <!-- <h3>Links</h3>
       <ul class="link-list">
 
         <h4>Docs</h4>
@@ -72,3 +72,40 @@ setTimeout(function sunrise () {
     </div>
   </div>
 </div>
+-->
+
+<h1>Homepage</h1>
+
+<form action="/">
+<div class="form-group row">
+  <label for="busqueda" class="col-2 col-form-label">Busque por nombres o apellidos</label>
+  <div class="col-8">
+    <input class="form-control" type="text" id="busqueda" placeholder="Busque por nombres o apellidos"
+           name="busqueda">
+  </div>
+  <button type="submit" class="btn btn-success btn-block">Buscar</button>
+</div>
+</form>
+
+<div class="row"></div>
+<% for(var i=0; i<usuarios.length; i++){ %>
+  <div class="col-sm-4">
+    <div class="card" style="width: 20rem;">
+      <div class="card-block">
+        <h4 class="card-title"><%= usuarios[i].nombres %> <%= usuarios[i].apellidos %></h4>
+        <p class="card-text"><%= usuarios[i].correo %></p>
+        <form action="/Usuario/eliminarUsuario?id=<%= usuarios[i].id %>" method="post">
+          <button class="btn btn-outline-danger">Borrar</button>
+        </form>
+
+        <a href="/editarUsuario?id=<%= usuarios[i].id %>">
+          <button class="btn btn-primary">Editar</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% } %>
+
+

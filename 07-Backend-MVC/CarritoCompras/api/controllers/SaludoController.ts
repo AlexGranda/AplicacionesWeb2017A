@@ -3,6 +3,7 @@
  */
 declare var module:any;
 declare var Usuario;
+declare var sails;
 
 module.exports = {
 
@@ -37,38 +38,7 @@ module.exports = {
   },
 
   //ejemplos deber
-  status:(req, res) => {
-    res.status(505);
-    return res.send("This page will always go to 505");
-  },
-  set: (req, res) => {
-    res.set('holi', 'boli');
-    res.set('xq', 'tan soli');
-    res.set('aqui', 'en la poli');
-    return res.send();
-  },
-  get: (req, res) => {
-    res.get('Connection');
-    return res.send();
-  },
-  cookie: (req, res) => {
-    res.cookie('cookie','woof');
-    res.cookie('cookie1','arf');
-    return res.send();
-  },
-  clearCookie: (req, res) => {
-    res.clearCookie('cookie');
-    res.clearCookie('cookie1');
-    return res.send();
-  },
-  redirect: (req, res) => {
-    res.redirect('www.google.com');
-    return res.send();
-  },
-  location: (req, res) => {
-    res.location('foo/bar');
-    return res.send();
-  },
+
 
 
 
@@ -80,6 +50,12 @@ module.exports = {
     //2 - FOrms parameters
 
     let parametros = req.allParams();
+
+    //localhost:1337/Saludo/crearUsuarioQuemado -> absolutePath
+
+    //relativePath: /Saludo/crearUsuario
+
+    sails.log.info("parametros", parametros)
 
     let nuevoUsuario = {
       nombres: parametros.nombres,
@@ -104,9 +80,80 @@ module.exports = {
       }
       else
       {
-        return res.ok(usuarioCreado)
+
+        Usuario.find().exec((error, records) => {
+          if(error) return res.serverError(error)
+          else {
+            return res.view('homepage', {usuarios: records})
+          }
+        })
+
       }
     })
+  },
+
+  encontrarUsuario: (req, res) => {
+    let parametros = req.allParams();
+
+    Usuario.find(parametros).exec((error, records) => {
+      if(error)
+      {
+        return res.serverError(error);
+      }
+      else
+      {
+        console.log('Wow, there are %d users compatible: ', records.length, records);
+        return res.json(records)
+      }
+    })
+  },
+
+  encontrarTodos: (req, res) => {
+    Usuario.find().exec((error, records) => {
+
+    })
+  },
+  encontrarUnUsuario: (req,res) => {
+    let parametros = req.allParams();
+
+    Usuario.findOne(parametros).exec(function (error, record) {
+      if(error) {
+        return res.serverError(error)
+      }
+      if(!record)
+      {
+        return res.notFound('Could not find user, sorry')
+      }
+      else
+      {
+        return res.json(record)
+      }
+    })
+  },
+  encontrarOCrear: (req, res) => {
+    let parametros = req.allParams();
+
+    Usuario.findOrCreate({nombre:parametros.nombre}, {parametros}).exec(function createFindCB(error, createdOrFoundRecords){
+      console.log('What\'s cookin\' '+createdOrFoundRecords.name+'?');
+      return res.json(createdOrFoundRecords);
+    });
+
+
+  },
+  actualizarNombre: (req, res) => {
+    let parametros = req.allParams();
+
+    Usuario.update({nombres:parametros.nombreOriginal},{nombre:parametros.nombreNuevo}).exec(function afterwards(err, updated){
+
+      if (err) {
+        // handle error here- e.g. `res.serverError(err);`
+        return;
+      }
+      else {
+        console.log('Updated user to have name ' + updated[0].nombres);
+        return res.json(updated);
+      }
+    });
   }
 }
 
