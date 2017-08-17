@@ -59,5 +59,54 @@ module.exports = {
     else{
       return res.badRequest()
     }
+  },
+
+  AnadirUsuarioCarrito: (req, res) => {
+    let parametros = req.allParams()
+    if(parametros.id)
+    {
+      let cookies = req.cookies
+      console.log(cookies)
+
+      if(cookies.arregloUsuarios)
+      {
+        let arregloUsuarios = cookies.arregloUsuarios.idsCliente;
+        let existeUsuario = arregloUsuarios.find(
+          (idUsuario)=>
+          {
+            return idUsuario == parametros.id;
+          }
+        );
+        console.log('existeUsuario',existeUsuario)
+        if(existeUsuario) {
+          return res.redirect('/')
+        }
+        else {
+
+          arregloUsuarios.push(parametros.id);
+          console.log(arregloUsuarios)
+
+          res.cookie('arregloUsuarios', {
+              idsCliente:arregloUsuarios
+            });
+          return res.redirect('/')
+        }
+      }
+      else
+      {
+        let arregloUsuarios = []
+        arregloUsuarios.push(parametros.id)
+        res.cookie('arregloUsuarios', {
+          idsCliente:arregloUsuarios
+        });
+
+        //return res.redirect('/')
+      }
+      return res.redirect('/');
+    }
+    else
+    {
+      return res.badRequest('No envia parametros')
+    }
   }
 }

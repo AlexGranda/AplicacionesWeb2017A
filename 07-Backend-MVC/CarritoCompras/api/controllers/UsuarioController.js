@@ -43,5 +43,42 @@ module.exports = {
         else {
             return res.badRequest();
         }
+    },
+    AnadirUsuarioCarrito: function (req, res) {
+        var parametros = req.allParams();
+        if (parametros.id) {
+            var cookies = req.cookies;
+            console.log(cookies);
+            if (cookies.arregloUsuarios) {
+                var arregloUsuarios = cookies.arregloUsuarios.idsCliente;
+                var existeUsuario = arregloUsuarios.find(function (idUsuario) {
+                    return idUsuario == parametros.id;
+                });
+                console.log('existeUsuario', existeUsuario);
+                if (existeUsuario) {
+                    return res.redirect('/');
+                }
+                else {
+                    arregloUsuarios.push(parametros.id);
+                    console.log(arregloUsuarios);
+                    res.cookie('arregloUsuarios', {
+                        idsCliente: arregloUsuarios
+                    });
+                    return res.redirect('/');
+                }
+            }
+            else {
+                var arregloUsuarios = [];
+                arregloUsuarios.push(parametros.id);
+                res.cookie('arregloUsuarios', {
+                    idsCliente: arregloUsuarios
+                });
+                //return res.redirect('/')
+            }
+            return res.redirect('/');
+        }
+        else {
+            return res.badRequest('No envia parametros');
+        }
     }
 };

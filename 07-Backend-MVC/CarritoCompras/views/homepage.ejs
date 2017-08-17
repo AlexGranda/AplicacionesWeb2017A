@@ -76,6 +76,80 @@ setTimeout(function sunrise () {
 
 <h1>Homepage</h1>
 
+<% if(typeof arregloUsuarios != 'undefined') {%>
+<h3>Lista de Arreglo de usuarios</h3>
+<ul>
+  <%for(var j =0;arregloUsuarios.length;j++){%>
+  <li>Id Ususario: <%=arregloUsuarios[j]%> </li>
+  <%} %>
+</ul>
+<% } %>
+
+<script>
+  var xhttp;
+  var campoNombre
+  var usuario
+  var url
+  var metodo
+  function crearNuevoUsuario() {
+
+    url = "http://localhost:1337/Usuario";
+    metodo = "POST";
+    campoNombre = document.getElementById("nombres").value
+    usuario = {
+        nombres:campoNombre
+    }
+
+    xhttp = new XMLHttpRequest();
+
+    //Llamar a la defincion de la funcion
+    //que es lo que va a pasar cuando me responda
+
+    xhttp.onreadystatechange = agregarUsuarioALaInterfaz
+
+    //definir url, metodo y datos
+
+    var parametros = "?nombres="+usuario.nombres
+    console.log(url)
+    xhttp.open(metodo, url+parametros)
+
+    //enviar
+    xhttp.send();
+
+    console.log(usuario)
+  }
+
+  function agregarUsuarioALaInterfaz() {
+      if(this.readyState == 4 && this.status == 201)
+      {
+        var usuarioCreado = JSON.parse(xhttp.responseText);
+        var nuevoUsuarioNodo = document.createElement("div");
+
+        nuevoUsuarioNodo.className = "col-sm-4";
+        var htmlNuevoUsuario = "<h1>"+usuarioCreado.nombres+"</h1>"
+
+        nuevoUsuarioNodo.innerHTML = htmlNuevoUsuario;
+
+        var contenedor = document.getElementById("contenedor")
+
+        contenedor.appendChild(nuevoUsuarioNodo);
+      }
+
+  }
+</script>
+
+
+<div class="form-group row">
+  <label for="nombres" class="col-4 col-form-label">Ingrese Nombres</label>
+  <div class="col-8">
+    <input class="form-control" type="text" id="nombres" placeholder="Aída Alexandra"
+           name="busqueda">
+
+<button class="btn btn-outline-success" onclick="crearNuevoUsuario()">Crear Nuevo Usuario</button>
+  </div>
+</div>
+
+
 <form action="/">
 <div class="form-group row">
   <label for="busqueda" class="col-2 col-form-label">Busque por nombres o apellidos</label>
@@ -87,7 +161,7 @@ setTimeout(function sunrise () {
 </div>
 </form>
 
-<div class="row"></div>
+<div class="row" id="contenedor"></div>
 <% for(var i=0; i<usuarios.length; i++){ %>
   <div class="col-sm-4">
     <div class="card" style="width: 20rem;">
@@ -96,6 +170,12 @@ setTimeout(function sunrise () {
         <p class="card-text"><%= usuarios[i].correo %></p>
         <form action="/Usuario/eliminarUsuario?id=<%= usuarios[i].id %>" method="post">
           <button class="btn btn-outline-danger">Borrar</button>
+        </form>
+
+        <form action="/Usuario/AnadirUsuarioCarrito" method="post">
+          <input hidden type="text" name="id" value="<%=usuarios[i].id%>">
+
+          <button type="submit" class="btn btn-primary">Añadir Usuario a Carrito</button>
         </form>
 
         <a href="/editarUsuario?id=<%= usuarios[i].id %>">
