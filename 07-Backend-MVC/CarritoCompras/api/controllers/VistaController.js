@@ -30,12 +30,12 @@ module.exports = {
             }
             else {
                 var cookies = req.cookies;
-                if (cookies.arregloUsuarios) {
-                    var arregloUsuarios = cookies.arregloUsuarios.idsCliente;
-                    console.log(arregloUsuarios);
+                /*if (cookies.arregloUsuarios) {*/
+                    //var arregloUsuarios = cookies.arregloUsuarios.idsCliente;
+                    //console.log(arregloUsuarios);
                     return res.view('homepage', { usuarios: records,
-                        arregloUsuarios: arregloUsuarios });
-                }
+                        /*arregloUsuarios: arregloUsuarios */});
+                //}
                 sails.log.info("Usuarios", records);
             }
         });
